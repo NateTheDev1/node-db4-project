@@ -33,6 +33,16 @@ server.get("/api/recipes/:id/instructions", (req, res) => {
     });
 });
 
+server.get("/api/ingredients/:id/recipes", (req, res) => {
+  db.getIngredientsRecipe(req.params.id)
+    .then((recipes) => {
+      res.status(200).json({ data: recipes });
+    })
+    .catch((err) => {
+      handleError(err, res);
+    });
+});
+
 function handleError(err, res) {
   console.log(err);
   res.status(500).json({ error: err });

@@ -23,7 +23,15 @@ server.get("/api/recipes/:id/shoppinglist", (req, res) => {
     });
 });
 
-server.get("/api/recipes/:id/instructions", (req, res) => {});
+server.get("/api/recipes/:id/instructions", (req, res) => {
+  db.getInstructions(req.params.id)
+    .then((instructions) => {
+      res.status(200).json({ data: instructions });
+    })
+    .catch((err) => {
+      handleError(err, res);
+    });
+});
 
 function handleError(err, res) {
   console.log(err);
